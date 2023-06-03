@@ -1,0 +1,21 @@
+---
+- name: Deploy app1
+  hosts: webservers
+  gather_facts: false
+
+  tasks:
+    - name: Copy files to remote hosts
+      copy:
+        src: ./index.html
+        dest: /var/www/html/
+    
+    - name: Read remote file
+      slurp:
+        src: /var/www/html/index.html
+      register: file_contents
+
+    - name: Display file contents
+      debug:
+        var: file_contents.content | b64decode
+    
+ 
