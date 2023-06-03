@@ -2,6 +2,7 @@
 - name: Deploy app1
   hosts: webservers
   gather_facts: false
+  remote_user: root
 
   tasks:
     - name: Copy files to remote hosts
