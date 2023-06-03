@@ -15,15 +15,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh ''' # copy index.html to appserver 1
- 
-                        echo "Copying Index.html to APP server1"
-                        scp index.html root@10.0.4.43:/var/www/html/
-                        
-                        echo "Checking if the file is updated"
-                        ssh root@10.0.4.43 "cat /var/www/html/index.html"
-                        
-                        echo "Deployment Done" '''
+                sh ''' ansible-playbook deploy/playbook.yaml '''
             }
         }
     }
