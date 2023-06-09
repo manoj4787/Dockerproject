@@ -32,7 +32,7 @@ pipeline {
 	               echo 'Login Completed'  
                 }
             }
-        }
+        
 
         stage('Build') {
             steps {
