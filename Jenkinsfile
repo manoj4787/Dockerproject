@@ -45,7 +45,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh "docker run -d --name ${containerName} ${dockerArgs} ${registry}/${imageName}:${version}"
+                sh "ssh root@10.0.1.207 'docker run -d --name ${containerName} ${dockerArgs} ${registry}/${imageName}:${version}' "
             }
         }
     }
