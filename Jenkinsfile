@@ -7,7 +7,7 @@ pipeline {
         containerName = "my-webapp-container"  // Replace with your desired container name
         dockerfilePath = "./Dockerfile"  // Replace with the path to your Dockerfile
         dockerArgs = "-p 8080:80"  // Replace with your desired container arguments
-        version = sh(script: 'jq -r '.version' version.json', returnStdout: true).trim()
+        version = sh(script: 'jq \'.version\' version.json', returnStdout: true).trim()
     }
     stages {
         stage('Clean WS') { 
