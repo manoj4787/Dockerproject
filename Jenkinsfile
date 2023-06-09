@@ -32,13 +32,13 @@ pipeline {
         stage('Build') {
             steps {
                 
-                sh "docker build -t ${registry}/${imageName}:${version} -f ${dockerfilePath} ."
+                sh "sudo docker build -t ${registry}/${imageName}:${version} -f ${dockerfilePath} ."
             }
         }
         
         stage('Push to Artifcatory') {
             steps {
-                sh "docker push ${registry}/${imageName}:${version}"
+                sh "sudo docker push ${registry}/${imageName}:${version}"
             }
         }
 
