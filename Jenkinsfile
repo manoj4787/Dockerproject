@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         registry = "sen31088"  // Replace with your Docker registry URL
+        DOCKERHUB_CREDENTIALS= credentials('docker-sen31088')
         imageName = "webapp"  // Replace with your desired image name
         containerName = "my-webapp-container"  // Replace with your desired container name
         dockerfilePath = "./Dockerfile"  // Replace with the path to your Dockerfile
@@ -23,8 +24,12 @@ pipeline {
         
         stage('Docker Login') {
             steps {
-                withCredentials([usernamePassword(credentialsId: docker-sen31088, passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-                    sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
+                   echo 'Printing username and pasword'
+                   echo '$DOCKERHUB_CREDENTIALS_PSW'      
+                   echo '$DOCKERHUB_CREDENTIALS_USR'
+                   echo '---------------------------'  
+                   sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'     		
+	               echo 'Login Completed'  
                 }
             }
         }
