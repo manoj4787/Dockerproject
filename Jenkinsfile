@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        registry = "sen31088"  // Replace with your Docker registry URL
-        DOCKERHUB_CREDENTIALS= credentials('docker-sen31088')
+        registry = "manoj4787"  // Replace with your Docker registry URL
+        DOCKERHUB_CREDENTIALS= credentials('docker-manoj4787')
         imageName = "webapp"  // Replace with your desired image name
         containerName = "my-webapp-container"  // Replace with your desired container name
         dockerfilePath = "./Dockerfile"  // Replace with the path to your Dockerfile
@@ -18,7 +18,7 @@ pipeline {
         }
         stage('SCM'){
             steps {
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'sen', url: 'https://github.com/sen31088/app1.git']])
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'manoj4787', url: 'https://github.com/manoj4787/Dockerproject.git']])
             }
         }
         
@@ -45,9 +45,9 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh "ssh root@10.0.1.207 'docker rm -f ${containerName} || true'"
+                sh "ssh root@10.0.2.140 'docker rm -f ${containerName} || true'"
 
-                sh "ssh root@10.0.1.207 'docker run -d --name ${containerName} ${dockerArgs} ${registry}/${imageName}:${version}' "
+                sh "ssh root@10.0.2.140 'docker run -d --name ${containerName} ${dockerArgs} ${registry}/${imageName}:${version}' "
             }
         }
     }
