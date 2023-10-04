@@ -1,0 +1,28 @@
+---
+- name: Deploy Docker Container
+  hosts: your_target_hosts  # Replace with your target hosts
+  become: yes  # Use "become" to execute commands with sudo
+
+  tasks:
+    - name: Pull Docker Image
+      docker_image:
+        name: "{{ registry }}/{{ imageName }}:{{ version }}"
+        state: present
+
+    - name: Stop and Remove Existing Container
+      docker_container:
+        name: "{{ containerName }}"
+        state: absent
+      ignore_errors: yes
+
+    - name: Run Docker Container
+      docker_container:
+        name: "{{ containerName }}"
+        image: "{{ registry }}/{{ imageName }}:{{ version }}"
+        state: started
+        ports:
+          - "{{ dockerArgs }}"
+        env:
+          YOUR_ENV_VAR: value  # Set environment variables (optional)
+
+    # You can add more tasks as needed
